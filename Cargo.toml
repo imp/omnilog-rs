@@ -1,0 +1,10 @@
+[package]
+name = "omnilog"
+version = "0.0.0"
+authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
+homepage = "https://gitlab.com/omnilog-rs/omnilog-rs.git"
+repository = "https://gitlab.com/omnilog-rs/omnilog-rs.git"
+license = "Apache-2.0/MIT"
+description = "Versatile logger framework"
+
+[dependencies]
