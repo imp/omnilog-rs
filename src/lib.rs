@@ -1,4 +1,7 @@
 #[derive(Debug, Default)]
+pub struct LogRecord;
+
+#[derive(Debug, Default)]
 pub struct Sink;
 
 #[derive(Debug, Default)]
@@ -33,6 +36,12 @@ impl Logger {
     }
 }
 
+impl Sink {
+    pub fn sink<'a>(&'a mut self, rec: &'a LogRecord) -> &LogRecord {
+        rec
+    }
+}
+
 pub fn get_logger() -> Logger {
     Logger::new()
 }
@@ -41,8 +50,14 @@ pub fn get_logger() -> Logger {
 mod tests {
     use super::*;
     #[test]
-    fn simple_get_logger() {
+    fn initial_zero_count() {
         let log = get_logger();
         assert_eq!(log.count(), 0);
+    }
+    #[test]
+    fn log_five_chars() {
+        let mut log = get_logger();
+        log.log("12345");
+        assert_eq!(log.count(), 5);
     }
 }
