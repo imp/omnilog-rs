@@ -1,63 +1,26 @@
-#[derive(Debug, Default)]
-pub struct LogRecord;
+mod logrecord;
+mod logger;
+mod processor;
 
-#[derive(Debug, Default)]
-pub struct Sink;
+pub use logrecord::LogRecord;
+pub use processor::{Processor, NopProcessor};
+pub use logger::{Logger, GenericLogger};
 
-#[derive(Debug, Default)]
-pub struct Filter;
-
-#[derive(Debug, Default)]
-pub struct Logger {
-    count: usize,
-    filters: Vec<Filter>,
-    sinks: Vec<Sink>,
+pub fn get_logger<T: Processor>() -> GenericLogger<T> {
+    GenericLogger::<T>::new()
 }
 
-impl Logger {
-    pub fn new() -> Self {
-        Logger {
-            count: 0,
-            filters: vec![],
-            sinks: vec![],
-        }
-    }
-
-    pub fn log(&mut self, msg: &str) {
-        let len = msg.len();
-
-        if len > 0 {
-            self.count += len;
-        }
-    }
-
-    pub fn count(&self) -> usize {
-        self.count
-    }
-}
-
-impl Sink {
-    pub fn sink<'a>(&'a mut self, rec: &'a LogRecord) -> &LogRecord {
-        rec
-    }
-}
-
-pub fn get_logger() -> Logger {
-    Logger::new()
+pub fn get_default_logger() -> GenericLogger<NopProcessor> {
+    get_logger::<NopProcessor>()
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn initial_zero_count() {
-        let log = get_logger();
+        let log = get_default_logger();
         assert_eq!(log.count(), 0);
-    }
-    #[test]
-    fn log_five_chars() {
-        let mut log = get_logger();
-        log.log("12345");
-        assert_eq!(log.count(), 5);
     }
 }
