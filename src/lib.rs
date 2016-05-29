@@ -1,17 +1,46 @@
 mod logrecord;
-mod logger;
+mod loggers;
 mod processor;
 
 pub use logrecord::LogRecord;
 pub use processor::{Processor, NopProcessor};
-pub use logger::{Logger, GenericLogger};
+pub use loggers::{DefaultLogger, ConsoleLogger};
 
-pub fn get_logger<T: Processor>() -> GenericLogger<T> {
-    GenericLogger::<T>::new()
+pub trait Logger {
+    /// Submit log event to logger
+    fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord>;
+
+    // Usual implementation looks like this
+    // (assuming there is _log() method that does the actual logging work)
+    // fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
+    //     if self.inner.is_some() {
+    //         self._log(self.inner.log(records))
+    //     } else {
+    //         self._log(records)
+    //     }
+    //
+    //     // or alternatively
+    //
+    //     self._log(if self.inner.is_some() { self.inner.log(records) } else { records })
+    // }
+
+    /// Create default logger
+    fn default_logger(self) -> Option<DefaultLogger<Self>>
+        where Self: Sized + Logger
+    {
+        DefaultLogger::new(Some(self))
+    }
+
+    /// Create default logger
+    fn console_logger(self) -> Option<ConsoleLogger<Self>>
+        where Self: Sized + Logger
+    {
+        ConsoleLogger::new(Some(self))
+    }
 }
 
-pub fn get_default_logger() -> GenericLogger<NopProcessor> {
-    get_logger::<NopProcessor>()
+pub fn get_logger<L: Logger>() -> Option<DefaultLogger<L>> {
+    DefaultLogger::new(None)
 }
 
 #[cfg(test)]
@@ -20,7 +49,7 @@ mod tests {
 
     #[test]
     fn initial_zero_count() {
-        let log = get_default_logger();
+        let log = get_logger();
         assert_eq!(log.count(), 0);
     }
 }
