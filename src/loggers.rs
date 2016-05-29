@@ -1,12 +1,13 @@
 use super::LogRecord;
-use super::Processor;
+// use super::Processor;
 use super::Logger;
 
+/// DefaultLogger is a default head of the logger stack.
+/// It always terminates the chain and effectively does nothing.
 #[derive(Debug, Default)]
 pub struct DefaultLogger;
 
-impl DefaultLogger
-{
+impl DefaultLogger {
     pub fn new() -> Self {
         DefaultLogger::default()
     }
@@ -16,13 +17,14 @@ impl DefaultLogger
     }
 }
 
-impl Logger for DefaultLogger
-{
+impl Logger for DefaultLogger {
     fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
         self._log(records)
     }
 }
 
+/// ConsoleLogger is a simple logger that logs everything to the standard output.
+/// It is very handy as a last link in the loger chain.
 #[derive(Debug, Default)]
 pub struct ConsoleLogger<L>
     where L: Logger
