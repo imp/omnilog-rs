@@ -55,4 +55,11 @@ mod tests {
         println!("{:?}", log);
         assert!(true);
     }
+
+    #[test]
+    fn simple_log_entry() {
+        let mut log = get_logger().console_logger();
+        log.log(vec!(&LogRecord::default()));
+        assert!(true);
+    }
 }
