@@ -13,15 +13,11 @@ pub trait Logger {
     // Usual implementation looks like this
     // (assuming there is _log() method that does the actual logging work)
     // fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-    //     if self.inner.is_some() {
-    //         self._log(self.inner.log(records))
-    //     } else {
-    //         self._log(records)
-    //     }
-    //
-    //     // or alternatively
-    //
-    //     self._log(if self.inner.is_some() { self.inner.log(records) } else { records })
+    //     let _records = match self.inner.as_mut() {
+    //         Some(inner) => inner.log(records),
+    //         None => records,
+    //     };
+    //     self._log(_records)
     // }
 
     /// Create default logger
