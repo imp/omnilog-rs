@@ -7,8 +7,8 @@ pub struct DefaultLogger;
 
 impl DefaultLogger
 {
-    pub fn new() -> Option<Self> {
-        Some(DefaultLogger::default())
+    pub fn new() -> Self {
+        DefaultLogger::default()
     }
 
     fn _log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
@@ -33,8 +33,8 @@ pub struct ConsoleLogger<L>
 impl<L> ConsoleLogger<L>
     where L: Logger
 {
-    pub fn new(inner: Option<L>) -> Option<Self> {
-        Some(ConsoleLogger { inner: inner })
+    pub fn new(inner: L) -> Self {
+        ConsoleLogger { inner: Some(inner) }
     }
 
     fn _log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {

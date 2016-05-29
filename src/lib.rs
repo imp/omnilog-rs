@@ -25,20 +25,20 @@ pub trait Logger {
     // }
 
     /// Create default logger
-    fn default_logger() -> Option<DefaultLogger>
+    fn default_logger() -> DefaultLogger
     {
         DefaultLogger::new()
     }
 
     /// Create default logger
-    fn console_logger(self) -> Option<ConsoleLogger<Self>>
+    fn console_logger(self) -> ConsoleLogger<Self>
         where Self: Sized + Logger
     {
-        ConsoleLogger::new(Some(self))
+        ConsoleLogger::new(self)
     }
 }
 
-pub fn get_logger() -> Option<DefaultLogger> {
+pub fn get_logger() -> DefaultLogger {
     DefaultLogger::new()
 }
 
@@ -49,6 +49,13 @@ mod tests {
     #[test]
     fn initial_zero_count() {
         let log = get_logger();
+        println!("{:?}", log);
+        assert!(true);
+    }
+
+    #[test]
+    fn chained_loggers() {
+        let log = get_logger().console_logger();
         println!("{:?}", log);
         assert!(true);
     }
