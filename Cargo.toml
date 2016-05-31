@@ -9,5 +9,9 @@ description = "Versatile logger framework"
 
 [dependencies]
 
-[dev-dependencies]
-clippy = "0.0.*"
+[dependencies.clippy]
+version = "0.0.*"
+optional = true
+
+[features]
+default = []
