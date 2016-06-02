@@ -1,10 +1,11 @@
 use ::Logger;
 use logrecord::LogRecord;
 
-/// DefaultLogger is a default head of the logger stack.
-/// It always terminates the chain and effectively does nothing.
+/// DefaultLogger is a simpliest "do nothing" logger, that always terminates the logger chain.
+/// It can be used for testing and debugging, or as a starting point for creating your own logger.
 #[derive(Debug, Default)]
-pub struct DefaultLogger;
+pub struct DefaultLogger {
+}
 
 impl DefaultLogger {
     pub fn new() -> Self {
@@ -19,15 +20,5 @@ impl DefaultLogger {
 impl Logger for DefaultLogger {
     fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
         self._log(records)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn initial_zero_count_does_nothing() {
-        assert!(true);
     }
 }

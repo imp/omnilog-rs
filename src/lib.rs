@@ -12,12 +12,13 @@ pub trait Logger {
 
     // Usual implementation looks like this
     // (assuming there is _log() method that does the actual logging work)
+    //
     // fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-    //     let _records = match self.inner.as_mut() {
-    //         Some(inner) => inner.log(records),
+    //     let r = match self.next {
+    //         Some(ref mut next) => next.log(records),
     //         None => records,
     //     };
-    //     self._log(_records)
+    //     self._log(r)
     // }
 
     /// Create default logger
@@ -26,14 +27,21 @@ pub trait Logger {
         DefaultLogger::new()
     }
 
-    /// Create default logger
-    fn console_logger(self) -> ConsoleLogger<Self>
+    /// Chain console logger
+    fn console_logger(self, name: &str) -> ConsoleLogger<Self>
         where Self: Sized + Logger
     {
-        ConsoleLogger::new(self)
+        ConsoleLogger::chain(self).name(name)
     }
 }
 
+/// Create console logger
+pub fn console_logger(name: &str) -> ConsoleLogger<DefaultLogger> {
+    ConsoleLogger::new().name(name)
+}
+
+/// Get an instance of a default logger. The exact kind of the default logger is not defined.
+/// Good for a generic logging facilities.
 pub fn get_logger() -> DefaultLogger {
     DefaultLogger::new()
 }
@@ -51,14 +59,14 @@ mod tests {
 
     #[test]
     fn chained_loggers() {
-        let log = get_logger().console_logger();
+        let log = get_logger().console_logger("console");
         println!("{:?}", log);
         assert!(true);
     }
 
     #[test]
     fn simple_log_entry() {
-        let mut log = get_logger().console_logger();
+        let mut log = console_logger("console").console_logger("beta");
         log.log(vec!(&LogRecord::default()));
         assert!(true);
     }

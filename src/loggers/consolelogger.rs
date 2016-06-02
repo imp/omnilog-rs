@@ -7,18 +7,28 @@ use logrecord::LogRecord;
 pub struct ConsoleLogger<L>
     where L: Logger
 {
-    next: L,
+    next: Option<L>,
+    name: String,
 }
 
 impl<L> ConsoleLogger<L>
     where L: Logger
 {
-    pub fn new(next: L) -> Self {
-        ConsoleLogger { next: next }
+    pub fn new() -> Self {
+        ConsoleLogger { next: None, name: String::new() }
+    }
+
+    pub fn chain(next: L) -> Self {
+        ConsoleLogger { next: Some(next), name: String::new() }
+    }
+
+    pub fn name(mut self, name: &str) -> Self {
+        self.name = name.to_owned();
+        self
     }
 
     fn _log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-        // println!("{:?}", records);
+        print!("{} ", self.name);
         records.into_iter().inspect(|r| println!("{:?}", r)).collect::<Vec<_>>()
     }
 }
@@ -27,7 +37,10 @@ impl<L> Logger for ConsoleLogger<L>
     where L: Logger
 {
     fn log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-        let r = self.next.log(records);
+        let r = match self.next {
+            Some(ref mut next) => next.log(records),
+            None => records,
+        };
         self._log(r)
     }
 }
