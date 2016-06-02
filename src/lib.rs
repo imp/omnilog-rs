@@ -40,8 +40,10 @@ pub fn console_logger(name: &str) -> ConsoleLogger<DefaultLogger> {
     ConsoleLogger::new().name(name)
 }
 
-/// Get an instance of a default logger. The exact kind of the default logger is not defined.
-/// Good for a generic logging facilities.
+/// Get an instance of a default logger.
+/// The exact kind of the default logger is not defined
+/// and happens to be a DefaultLogger at the moment.
+/// Good for a generic logging facilities and as an API demonstrator.
 pub fn get_logger() -> DefaultLogger {
     DefaultLogger::new()
 }
