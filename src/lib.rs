@@ -33,11 +33,23 @@ pub trait Logger {
     {
         ConsoleLogger::chain(self).name(name)
     }
+
+    /// Chain syslog logger
+    fn syslog_logger(self) -> SyslogLogger<Self>
+        where Self: Sized + Logger
+    {
+                SyslogLogger::chain(self)
+    }
 }
 
 /// Create console logger
 pub fn console_logger(name: &str) -> ConsoleLogger<DefaultLogger> {
     ConsoleLogger::new().name(name)
+}
+
+/// Create new syslog logger
+pub fn syslog_logger() -> SyslogLogger<DefaultLogger> {
+    SyslogLogger::new()
 }
 
 /// Get an instance of a default logger.
