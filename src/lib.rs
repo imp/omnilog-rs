@@ -4,7 +4,7 @@ mod processor;
 
 pub use logrecord::LogRecord;
 pub use processor::{Processor, NopProcessor};
-pub use loggers::{DefaultLogger, ConsoleLogger};
+pub use loggers::{DefaultLogger, ConsoleLogger, SyslogLogger};
 
 pub trait Logger {
     /// Submit log event to logger
