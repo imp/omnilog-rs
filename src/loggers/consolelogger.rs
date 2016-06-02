@@ -1,5 +1,4 @@
-use ::Logger;
-use logrecord::LogRecord;
+use ::{Logger,LogRecord};
 
 /// ConsoleLogger is a simple logger that logs everything to the standard output.
 /// It is very handy as a last link in the logger chain.

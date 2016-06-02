@@ -1,5 +1,4 @@
-use ::Logger;
-use logrecord::LogRecord;
+use ::{Logger, LogRecord};
 
 /// DefaultLogger is a simpliest "do nothing" logger, that always terminates the logger chain.
 /// It can be used for testing and debugging, or as a starting point for creating your own logger.
