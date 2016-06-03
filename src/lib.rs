@@ -1,10 +1,14 @@
+extern crate log;
+
 mod logrecord;
 mod loggers;
 mod processor;
+mod loglevel;
 
 pub use logrecord::LogRecord;
 pub use processor::{Processor, NopProcessor};
 pub use loggers::{DefaultLogger, ConsoleLogger, SyslogLogger};
+pub use loglevel::LogLevel;
 
 pub trait Logger {
     /// Submit log event to logger
