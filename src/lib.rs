@@ -1,5 +1,3 @@
-extern crate log;
-
 mod logrecord;
 mod loggers;
 mod processor;
