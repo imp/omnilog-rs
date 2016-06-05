@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Debug, PartialEq, PartialOrd)]
+#[derive(Copy, Clone, Debug, PartialEq, PartialOrd)]
 pub enum LogLevel {
     Panic,
     Error,

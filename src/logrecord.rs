@@ -20,6 +20,10 @@ impl LogRecord {
     pub fn new(lvl: LogLevel) -> Self {
         LogRecord { level: lvl, .. LogRecord::default() }
     }
+
+    pub fn level(record: &LogRecord) -> LogLevel {
+        record.level
+    }
 }
 
 #[cfg(test)]
