@@ -10,6 +10,12 @@ pub enum LogLevel {
     Trace,
 }
 
+impl Default for LogLevel {
+    fn default() -> Self {
+        LogLevel::Trace
+    }
+}
+
 impl fmt::Display for LogLevel {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         let text = match *self {
