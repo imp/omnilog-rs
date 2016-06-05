@@ -27,7 +27,8 @@ impl<L> SyslogLogger<L>
     }
 
     fn _log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-        unimplemented!();
+        // XXX Implement me
+        records
     }
 }
 
