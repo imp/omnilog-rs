@@ -1,6 +1,6 @@
 use super::loglevel::LogLevel;
 
-#[derive(Debug, Default, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct LogRecordId(u64);
 
 #[derive(Debug, Default, PartialEq)]
@@ -21,8 +21,12 @@ impl LogRecord {
         LogRecord { level: lvl, .. LogRecord::default() }
     }
 
-    pub fn level(record: &LogRecord) -> LogLevel {
-        record.level
+    pub fn level(&self) -> LogLevel {
+        self.level
+    }
+
+    pub fn id(&self) -> LogRecordId {
+        self.id
     }
 }
 
@@ -34,7 +38,7 @@ mod tests {
     #[test]
     fn default_log_record() {
         let record = LogRecord::default();
-        assert_eq!(record.id.0, 0);
+        assert_eq!(record.id(), LogRecordId(0));
     }
 
     #[test]
