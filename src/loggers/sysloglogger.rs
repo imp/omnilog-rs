@@ -27,7 +27,7 @@ impl<L> SyslogLogger<L>
     }
 
     fn _log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-        // XXX Implement me
+        // XXX Replace with real implementation
         records
     }
 }
