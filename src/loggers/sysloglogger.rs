@@ -14,11 +14,17 @@ impl<L> SyslogLogger<L>
     where L: Logger
 {
     pub fn new() -> Self {
-        SyslogLogger { next: None, name: String::new() }
+        SyslogLogger {
+            next: None,
+            name: String::new(),
+        }
     }
 
     pub fn chain(next: L) -> Self {
-        SyslogLogger { next: Some(next), name: String::new() }
+        SyslogLogger {
+            next: Some(next),
+            name: String::new(),
+        }
     }
 
     pub fn name(mut self, name: &str) -> Self {

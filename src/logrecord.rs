@@ -26,7 +26,11 @@ pub struct LogRecord {
 
 impl LogRecord {
     pub fn new(lvl: LogLevel, event: &str) -> Self {
-        LogRecord { level: lvl, event: event.to_owned(), .. LogRecord::default() }
+        LogRecord {
+            level: lvl,
+            event: event.to_owned(),
+            ..LogRecord::default()
+        }
     }
 
     pub fn item(&mut self, item: LogItem) -> &Self {

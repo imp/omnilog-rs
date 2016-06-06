@@ -17,8 +17,7 @@ pub trait Logger {
     // }
 
     /// Create default logger
-    fn default_logger() -> DefaultLogger
-    {
+    fn default_logger() -> DefaultLogger {
         DefaultLogger::new()
     }
 
@@ -33,7 +32,7 @@ pub trait Logger {
     fn syslog_logger(self) -> SyslogLogger<Self>
         where Self: Sized + Logger
     {
-                SyslogLogger::chain(self)
+        SyslogLogger::chain(self)
     }
 }
 

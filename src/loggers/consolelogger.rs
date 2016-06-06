@@ -1,4 +1,4 @@
-use ::{Logger,LogRecord};
+use ::{Logger, LogRecord};
 
 /// ConsoleLogger is a simple logger that logs everything to the standard output.
 /// It is very handy as a last link in the logger chain.
@@ -14,11 +14,17 @@ impl<L> ConsoleLogger<L>
     where L: Logger
 {
     pub fn new() -> Self {
-        ConsoleLogger { next: None, name: String::new() }
+        ConsoleLogger {
+            next: None,
+            name: String::new(),
+        }
     }
 
     pub fn chain(next: L) -> Self {
-        ConsoleLogger { next: Some(next), name: String::new() }
+        ConsoleLogger {
+            next: Some(next),
+            name: String::new(),
+        }
     }
 
     pub fn name(mut self, name: &str) -> Self {

@@ -22,6 +22,6 @@ mod tests {
     fn null_processor() {
         let p = NopProcessor::default();
         let r = &LogRecord::default();
-        assert_eq!(vec!(r), p.process(vec!(r)));
+        assert_eq!(vec![r], p.process(vec![r]));
     }
 }

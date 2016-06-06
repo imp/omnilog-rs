@@ -31,7 +31,7 @@ mod tests {
     #[test]
     fn simple_log_entry() {
         let mut log = console_logger("console").console_logger("beta");
-        log.log(vec!(&LogRecord::default()));
+        log.log(vec![&LogRecord::default()]);
         assert!(true);
     }
 }
