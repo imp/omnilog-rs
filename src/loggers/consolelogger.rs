@@ -33,8 +33,11 @@ impl<L> ConsoleLogger<L>
     }
 
     fn _log<'a>(&mut self, records: Vec<&'a LogRecord>) -> Vec<&'a LogRecord> {
-        print!("{} ", self.name);
-        records.into_iter().inspect(|r| println!("{:?}", r)).collect::<Vec<_>>()
+        records.into_iter().inspect(|r| self._log_single(r)).collect::<Vec<_>>()
+    }
+
+    fn _log_single<'a>(&self, record: &'a LogRecord) {
+        println!("{} {}::{} {:?}", self.name, record.get_level(), module_path!(), record)
     }
 }
 
