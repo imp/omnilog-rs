@@ -1,3 +1,4 @@
+use std::fmt;
 use super::loglevel::LogLevel;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -7,6 +8,12 @@ pub struct LogRecordId(u64);
 pub struct LogItem {
     key: String,
     value: String,
+}
+
+impl fmt::Display for LogItem {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        write!(fmt, "{}: {}", self.key, self.value)
+    }
 }
 
 #[derive(Debug, Default, PartialEq)]
