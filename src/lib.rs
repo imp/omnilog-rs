@@ -30,8 +30,10 @@ mod tests {
 
     #[test]
     fn simple_log_entry() {
-        let mut log = console_logger("console").console_logger("beta");
-        log.log(vec![&LogRecord::default()]);
+        let mut log = console_logger("alpha").console_logger("delta");
+        println!("");
+        log.log(vec![&LogRecord::new(LogLevel::Debug, "simple_log_entry")]);
+        println!("");
         assert!(true);
     }
 }
