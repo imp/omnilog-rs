@@ -21,11 +21,21 @@ impl LogRecord {
         LogRecord { level: lvl, .. LogRecord::default() }
     }
 
-    pub fn level(&self) -> LogLevel {
+    pub fn item(&mut self, item: LogItem) -> &Self {
+        self.items.push(item);
+        self
+    }
+
+    pub fn items(&mut self, items: &mut Vec<LogItem>) -> &Self {
+        self.items.append(items);
+        self
+    }
+
+    pub fn get_level(&self) -> LogLevel {
         self.level
     }
 
-    pub fn id(&self) -> LogRecordId {
+    pub fn get_id(&self) -> LogRecordId {
         self.id
     }
 }
@@ -38,12 +48,27 @@ mod tests {
     #[test]
     fn default_log_record() {
         let record = LogRecord::default();
-        assert_eq!(record.id(), LogRecordId(0));
+        assert_eq!(record.get_id(), LogRecordId(0));
     }
 
     #[test]
     fn simple_log_record() {
         let record = LogRecord::new(Debug);
-        assert_eq!(record.level, Debug);
+        assert_eq!(record.get_level(), Debug);
+    }
+
+    #[test]
+    fn add_one_item() {
+        let mut record = LogRecord::new(Info);
+        record.item(LogItem::default());
+        assert_eq!(record.items.len(), 1);
+    }
+
+    #[test]
+    fn add_many_items() {
+        let mut record = LogRecord::new(Warning);
+        let mut items = vec!(LogItem::default(), LogItem::default());
+        record.items(&mut items);
+        assert_eq!(record.items.len(), 2);
     }
 }
