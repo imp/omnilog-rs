@@ -20,12 +20,13 @@ impl fmt::Display for LogItem {
 pub struct LogRecord {
     level: LogLevel,
     id: LogRecordId,
+    event: String,
     items: Vec<LogItem>,
 }
 
 impl LogRecord {
-    pub fn new(lvl: LogLevel) -> Self {
-        LogRecord { level: lvl, .. LogRecord::default() }
+    pub fn new(lvl: LogLevel, event: &str) -> Self {
+        LogRecord { level: lvl, event: event.to_owned(), .. LogRecord::default() }
     }
 
     pub fn item(&mut self, item: LogItem) -> &Self {
@@ -60,21 +61,21 @@ mod tests {
 
     #[test]
     fn simple_log_record() {
-        let record = LogRecord::new(Debug);
+        let record = LogRecord::new(Debug, "foo");
         assert_eq!(record.get_level(), Debug);
     }
 
     #[test]
     fn add_one_item() {
-        let mut record = LogRecord::new(Info);
+        let mut record = LogRecord::new(Info, "bar");
         record.item(LogItem::default());
         assert_eq!(record.items.len(), 1);
     }
 
     #[test]
     fn add_many_items() {
-        let mut record = LogRecord::new(Warning);
-        let mut items = vec!(LogItem::default(), LogItem::default());
+        let mut record = LogRecord::new(Warning, "foo");
+        let mut items = vec![LogItem::default(), LogItem::default()];
         record.items(&mut items);
         assert_eq!(record.items.len(), 2);
     }
