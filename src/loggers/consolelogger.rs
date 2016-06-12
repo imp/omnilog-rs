@@ -37,7 +37,7 @@ impl<L> ConsoleLogger<L>
     }
 
     fn _log_single<'a>(&self, record: &'a LogRecord) {
-        println!("{} {}::{} {:?}", self.name, record.get_level(), module_path!(), record)
+        println!("{} {}::{} {}", self.name, record.get_level(), module_path!(), record.get_event())
     }
 }
 

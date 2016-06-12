@@ -50,6 +50,10 @@ impl LogRecord {
     pub fn get_id(&self) -> LogRecordId {
         self.id
     }
+
+    pub fn get_event(&self) -> &str {
+        &self.event
+    }
 }
 
 #[cfg(test)]
