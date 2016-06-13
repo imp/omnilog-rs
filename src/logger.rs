@@ -48,7 +48,7 @@ pub fn syslog_logger() -> SyslogLogger<DefaultLogger> {
 
 /// Get an instance of a default logger.
 /// The exact kind of the default logger is not defined
-/// and happens to be a DefaultLogger at the moment.
+/// and happens to be a `DefaultLogger` at the moment.
 /// Good for a generic logging facilities and as an API demonstrator.
 pub fn get_logger() -> DefaultLogger {
     DefaultLogger::new()

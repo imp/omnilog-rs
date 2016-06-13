@@ -1,6 +1,6 @@
 use ::{Logger, LogRecord};
 
-/// SyslogLogger is a simple logger that logs everything to the UNIX syslog facility.
+/// `SyslogLogger` is a simple logger that logs everything to the UNIX syslog facility.
 /// It is very handy as a last link in the logger chain.
 #[derive(Debug, Default)]
 pub struct SyslogLogger<L>

@@ -1,6 +1,6 @@
 use ::{Logger, LogRecord};
 
-/// ConsoleLogger is a simple logger that logs everything to the standard output.
+/// `ConsoleLogger` is a simple logger that logs everything to the standard output.
 /// It is very handy as a last link in the logger chain.
 #[derive(Debug, Default)]
 pub struct ConsoleLogger<L>
