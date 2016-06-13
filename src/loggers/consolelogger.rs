@@ -36,7 +36,7 @@ impl<L> ConsoleLogger<L>
         records.into_iter().inspect(|r| self._log_single(r)).collect::<Vec<_>>()
     }
 
-    fn _log_single<'a>(&self, record: &'a LogRecord) {
+    fn _log_single(&self, record: & LogRecord) {
         println!("{} {}::{} {}", self.name, record.get_level(), module_path!(), record.get_event())
     }
 }
