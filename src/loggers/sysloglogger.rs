@@ -1,4 +1,5 @@
-use ::{Logger, LogRecord};
+use Logger;
+use LogRecord;
 
 /// `SyslogLogger` is a simple logger that logs everything to the UNIX syslog facility.
 /// It is very handy as a last link in the logger chain.
@@ -52,8 +53,6 @@ impl<L> Logger for SyslogLogger<L>
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn initial_zero_count_does_nothing() {
         assert!(true);

@@ -1,4 +1,5 @@
-use ::{Logger, LogRecord};
+use Logger;
+use LogRecord;
 
 /// `ConsoleLogger` is a simple logger that logs everything to the standard output.
 /// It is very handy as a last link in the logger chain.
@@ -36,8 +37,12 @@ impl<L> ConsoleLogger<L>
         records.into_iter().inspect(|r| self._log_single(r)).collect::<Vec<_>>()
     }
 
-    fn _log_single(&self, record: & LogRecord) {
-        println!("{} {}::{} {}", self.name, record.get_level(), module_path!(), record.get_event())
+    fn _log_single(&self, record: &LogRecord) {
+        println!("{} {}::{} {}",
+                 self.name,
+                 record.get_level(),
+                 module_path!(),
+                 record.get_event())
     }
 }
 
@@ -55,8 +60,6 @@ impl<L> Logger for ConsoleLogger<L>
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn initial_zero_count_does_nothing() {
         assert!(true);
