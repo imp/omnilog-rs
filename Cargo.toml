@@ -8,10 +8,3 @@ license = "Apache-2.0/MIT"
 description = "Versatile logger framework"
 
 [dependencies]
-
-[dependencies.clippy]
-version = "0.0.*"
-optional = true
-
-[features]
-default = []
